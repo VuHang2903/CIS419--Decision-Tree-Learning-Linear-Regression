@@ -66,7 +66,7 @@ def evaluatePerformance(numTrials=100):
             for dataRow in range((fold + 1) * intervalDivider, len(X)):
                 Xtrain.append(X[dataRow])
                 ytrain.append(y[dataRow])
-
+            
             # train the decision tree
             clf = tree.DecisionTreeClassifier()
             clf = clf.fit(Xtrain,ytrain)
@@ -107,8 +107,7 @@ def evaluatePerformance(numTrials=100):
     stats[2,0] = meanDT3Accuracy
     stats[2,1] = stddevDT3Accuracy
     return stats
-
-
+    
 
 # Do not modify from HERE...
 if __name__ == "__main__":
