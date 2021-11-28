@@ -108,20 +108,21 @@ def evaluatePerformance(numTrials=100):
                     dt3Accuracies.append(dt3_acc)
                 
                 idx_percent = math.floor(percent / 10 - 1)
-                idx_trial_fold = x * fold + fold
+                idx_trial_fold = x * numOfFoldsPerTrial + fold
                 tree_accuracies[idx_percent][idx_trial_fold] = tree_acc
                 stump_accuracies[idx_percent][idx_trial_fold] = stump_acc
                 dt3_accuracies[idx_percent][idx_trial_fold] = dt3_acc
     
     meanDecisionTreeAccuracies = np.mean(tree_accuracies, axis=1)
     stddevDecisionTreeAccuracies = np.std(tree_accuracies, axis=1)
+    print(stddevDecisionTreeAccuracies)
     meanDecisionStumpAccuracies = np.mean(stump_accuracies, axis=1)
     stddevDecisionStumpAccuracies = np.std(stump_accuracies, axis=1)
     meanDT3Accuracies = np.mean(dt3_accuracies, axis=1)
     stddevDT3Accuracies = np.std(dt3_accuracies, axis=1)
 
-    fig, ax = plt.subplots(1, 3)
     train_sizes = np.arange(10, 101, 10)
+    fig, ax = plt.subplots(1, 3)
     plot_learning_curve(
         ax[0],
         train_sizes,
@@ -176,13 +177,6 @@ def plot_learning_curve(
 
     ax.set_xlabel("Training samples (%)")
     ax.set_ylabel("Accuracy")
-    ax.plot(
-        train_sizes,
-        mean_accuracies,
-        'o-',
-        color="r",
-        label="Mean of test accuracies"
-    )
     ax.errorbar(
         train_sizes,
         mean_accuracies,
@@ -192,6 +186,7 @@ def plot_learning_curve(
         label="Standard deviation of test accuracies"
     )
     ax.set_title(title)
+    ax.set_ylim(bottom=0, top=1.0)
     
 
 # Do not modify from HERE...

@@ -3,6 +3,7 @@
     AUTHOR Eric Eaton, Chris Clingerman
 '''
 
+import math
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -51,7 +52,7 @@ def evaluatePerformance(numTrials=100):
 
         # split the data randomly into 10 folds
         folds = []    
-        intervalDivider = len(X)/numOfFoldsPerTrial
+        intervalDivider = math.floor(len(X)/numOfFoldsPerTrial)
         for fold in range(0, numOfFoldsPerTrial):
             # designate a new testing range
             Xtest = X[fold * intervalDivider:(fold + 1) * intervalDivider,:]
@@ -111,9 +112,8 @@ def evaluatePerformance(numTrials=100):
 
 # Do not modify from HERE...
 if __name__ == "__main__":
-    
-    stats = evaluatePerformance()
-    print "Decision Tree Accuracy = ", stats[0,0], " (", stats[0,1], ")"
-    print "Decision Stump Accuracy = ", stats[1,0], " (", stats[1,1], ")"
-    print "3-level Decision Tree = ", stats[2,0], " (", stats[2,1], ")"
+    stats = evaluatePerformance(100)
+    print("Decision Tree Accuracy = {}, ({})".format(stats[0,0], stats[0,1]))
+    print("Decision Stump Accuracy = {}, ({})".format(stats[1,0], stats[1,1]))
+    print("3-level Decision Tree = {}, ({})".format(stats[2,0], stats[2,1]))
 # ...to HERE.
