@@ -169,6 +169,6 @@ if __name__ == "__main__":
 
     # Compute the closed form solution in one line of code
     theta_closed_form = (X.getT()*X).getI()*X.getT()*y  
-    print "theta_closed_form: ", theta_closed_form
+    print ("theta_closed_form: "), theta_closed_form
     
 
