@@ -13,6 +13,7 @@ from numpy.linalg import *
 
 # our linear regression class
 from linreg import LinearRegression
+from test_linreg_univariate import visualizeObjective
 
 
 if __name__ == "__main__":
@@ -47,8 +48,12 @@ if __name__ == "__main__":
     lr_model = LinearRegression(init_theta = init_theta, alpha = alpha, n_iter = n_iter)
     lr_model.fit(X,y)
 
+    theta1_vals = np.linspace(-10, 10, 100);
+    theta2_vals = np.linspace(-10, 10, 100);
+    visualizeObjective(lr_model,theta1_vals, theta2_vals, X, y)
+
     # Compute the closed form solution in one line of code
     thetaClosedForm = (X.getT()*X).getI()*X.getT()*y
-    print "thetaClosedForm: ", thetaClosedForm
+    print ("thetaClosedForm: ", thetaClosedForm)
 
 
