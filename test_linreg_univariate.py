@@ -53,10 +53,10 @@ def plotRegLine1D( lr_model, X, y):
         lr_model - linear regression trained model
     '''
     plotData1D(X[:,1], y, to_block =False)
-    plt.hold(True)
+    #plt.hold(True)
     plt.plot(X[:,1],X*lr_model.theta,'b-', label='Regression Line')
     plt.legend(loc='lower right')
-    plt.hold(False)
+    #plt.hold(False)
     plt.show()
 
 
@@ -80,12 +80,12 @@ def visualizeObjective(lr_model,t1_vals,t2_vals, X, y):
 
     # Compute the objective function over the space
     Z = np.zeros(T1.shape)
-    for i in xrange(n):
-        for j in xrange(p):
+    for i in range(n):
+        for j in range(p):
             Z[i,j] = lr_model.computeCost(X,y, np.matrix([T1[i,j],T2[i,j]]).T )
 
     fig = plt.figure()
-    ax = fig.gca(projection='3d')
+    ax = fig.axes(projection='3d')
     surf = ax.plot_surface(T1, T2, Z, rstride=1, cstride=1, cmap=cm.coolwarm,
         linewidth=0)
 
@@ -93,12 +93,12 @@ def visualizeObjective(lr_model,t1_vals,t2_vals, X, y):
     ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 
     fig.colorbar(surf, shrink=0.5, aspect=5)
-    plt.hold(True)
+    #plt.hold(True)
 
     # If the history of the objective function plot the path taken by the gradient descent
     if lr_model.JHist !=None:
         
-        for ii in xrange(len(lr_model.JHist)-1): 
+        for ii in range(len(lr_model.JHist)-1): 
             t1 = lr_model.JHist[ii][1].tolist()
             t2 = lr_model.JHist[ii+1][1].tolist()
 
@@ -127,7 +127,7 @@ def visualizeObjective(lr_model,t1_vals,t2_vals, X, y):
     plt.xlabel("Theta0")
     plt.ylabel("Theta1")
 
-    plt.hold(True)
+    #plt.hold(True)
     plt.plot(lr_model.theta[0][0],lr_model.theta[1][0], 'rx')
     plt.show()
 
@@ -153,14 +153,14 @@ if __name__ == "__main__":
     
     # initialize the model
     init_theta = np.matrix(np.ones((d+1,1)))*10  # note that we really should be initializing this to be near zero, but starting it near [10,10] works better to visualize gradient descent for this particular problem
-    n_iter = 1500
+    n_iter = 2000
     alpha = 0.01
 
     # Instantiate objects
     lr_model = LinearRegression(init_theta = init_theta, alpha = alpha, n_iter = n_iter)
-    plotData1D(X[:,1],y)
+    #plotData1D(X[:,1],y)
     lr_model.fit(X,y)
-    plotRegLine1D(lr_model,X, y)
+    plotRegLine1D(lr_model, X, y)
 
     # Visualize the objective function convex shape
     theta1_vals = np.linspace(-10, 10, 100);
@@ -169,6 +169,5 @@ if __name__ == "__main__":
 
     # Compute the closed form solution in one line of code
     theta_closed_form = (X.getT()*X).getI()*X.getT()*y  
-    print ("theta_closed_form: "), theta_closed_form
+    print ("theta_closed_form: ", theta_closed_form)
     
-
